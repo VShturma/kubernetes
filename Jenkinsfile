@@ -16,4 +16,11 @@ node('docker-onapp-agent') {
   stage('generate inventory') {
     sh 'python3 inventory_creator.py'
   }
+
+  stage('ansible-kubernetes') {
+    sh 'sleep 10'
+    dir('ansible') {
+      ansiblePlaybook credentialsId: 'ssh-jenkins-agent', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'site.yml'
+    }
+  }
 }

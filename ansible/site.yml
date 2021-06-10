@@ -1,0 +1,6 @@
+---
+- hosts: master
+  become: yes
+
+- hosts: worker
+  become: yes
