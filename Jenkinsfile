@@ -13,4 +13,7 @@ node('docker-onapp-agent') {
     }
   }
 
+  stage('generate inventory') {
+    sh 'python3 inventory_creator.py'
+  }
 }
