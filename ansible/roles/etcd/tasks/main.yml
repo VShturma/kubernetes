@@ -3,11 +3,20 @@
   unarchive:
     src: https://github.com/etcd-io/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
     remote_src: yes
-    dest: /usr/local/bin/
-    include:
-    - etcd
-    - etcdctl
+    dest: /tmp/
 
+- name: Find ETCD binaries
+  find:
+    paths: /tmp
+    patterns: 'etcd*'
+  register: etcd_binaries
+
+- name: Copy ETCD binaries
+  copy:
+    src: "{{ etcd_binaries.path }}"
+    dest: /usr/local/bin/
+  with_items: "{{ etcd_binaries.files }}"
+ 
 - name: Copy keys
   copy:
     src: keys/etcd/
