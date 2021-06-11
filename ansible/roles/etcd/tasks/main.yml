@@ -31,8 +31,6 @@
   template:
     src: keys/etcd/etcd.service
     dest: /etc/systemd/system/etcd.service
-  with_items:
-    - "{{ groups['master'] }}"
 
 - name: Enable and start ETCD service
   systemd:

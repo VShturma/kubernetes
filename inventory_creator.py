@@ -7,4 +7,4 @@ for key, value in output.items():
 	with open("./ansible/inventory", "a") as inventory:
 		inventory.write(f"[{key}]\n")
 		for i in range(len(value['value'])):
-			inventory.write(f"{value['value'][i]}\n")
+			inventory.write(f"{key}{i+1} ansible_host={value['value'][i]}\n")
