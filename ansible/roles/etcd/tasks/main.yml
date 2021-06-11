@@ -21,3 +21,8 @@
   copy:
     src: keys/etcd/
     dest: /etc/etcd/
+
+- name: Create ETCD service
+  template:
+    src: keys/etcd/etcd.service
+    dest: /etc/systemd/system/etcd.service
