@@ -23,9 +23,10 @@ node('docker-onapp-agent') {
       withCredentials([
         file(credentialsId: 'kubernetes-ca-crt', variable: 'kubernetes_ca_crt'),
         file(credentialsId: 'kubernetes-etcd-crt', variable: 'kubernetes_etcd_crt'),
-        file(credentialsId: 'kubernetes-etcd-key', variable: 'kubernetes_etcd_key')
-      ]) {
-        sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key keys/etcd/'
+        file(credentialsId: 'kubernetes-etcd-key', variable: 'kubernetes_etcd_key'),
+        file(credentialsId: 'kubernetes-etcd-service', variable: 'kubernetes_etcd_service')
+        ]) {
+        sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key $kubernetes_etcd_service keys/etcd/'
       }
       ansiblePlaybook credentialsId: 'ssh-jenkins-agent', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'site.yml'
     }
