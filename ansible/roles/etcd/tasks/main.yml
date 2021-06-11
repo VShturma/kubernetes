@@ -31,3 +31,9 @@
   template:
     src: keys/etcd/etcd.service
     dest: /etc/systemd/system/etcd.service
+
+- name: Enable and start ETCD service
+  systemd:
+    name: etcd
+    enabled: yes
+    state: started
