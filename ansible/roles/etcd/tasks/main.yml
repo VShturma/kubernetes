@@ -7,14 +7,19 @@
 
 - name: Find ETCD binaries
   find:
-    paths: /tmp
-    patterns: 'etcd*'
+    paths: /tmp/
+    patterns:
+      - 'etcd'
+      - 'etcdctl'
+    recurse: yes
   register: etcd_binaries
 
 - name: Copy ETCD binaries
   copy:
-    src: "{{ etcd_binaries.path }}"
+    src: "{{ item.path }}"
     dest: /usr/local/bin/
+    remote_src: yes
+    mode: 744
   with_items: "{{ etcd_binaries.files }}"
  
 - name: Copy keys
@@ -36,4 +41,5 @@
   systemd:
     name: etcd
     enabled: yes
+    daemon_reload: yes
     state: started
