@@ -22,6 +22,11 @@
     src: keys/etcd/
     dest: /etc/etcd/
 
+- name: Create lib directory
+  file:
+    path: /var/lib/etcd
+    state: directory
+
 - name: Create ETCD service
   template:
     src: keys/etcd/etcd.service
