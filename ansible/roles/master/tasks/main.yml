@@ -1,5 +1,6 @@
 ---
-- name: Copy Kuberenetes keys and config files
+
+- name: Copy Kubernetes keys and config files
   copy:
     src: keys/kubernetes/
     dest: /var/lib/kubernetes/
@@ -12,7 +13,7 @@
 
 - name: Create Kube API Server service
   template:
-    src: /var/lib/kubernetes/kube-apiserver.service
+    src: keys/kubernetes/kube-apiserver.service
     dest: /etc/systemd/system/kube-apiserver.service
 
 - name: Enable and start Kube API Server service
@@ -30,7 +31,7 @@
 
 - name: Create Kube Controller Manager service
   template:
-    src: /var/lib/kubernetes/kube-controller-manager.kubeconfig
+    src: keys/kubernetes/kube-controller-manager.kubeconfig
     dest: /etc/systemd/system/kube-controller-manager.service
 
 - name: Enable and start Kube Controller Manager service
@@ -48,7 +49,7 @@
 
 - name: Create Kube Scheduler service
   template:
-    src: /var/lib/kubernetes/kube-scheduler.kubeconfig
+    src: keys/kubernetes/kube-scheduler.kubeconfig
     dest: /etc/systemd/system/kube-scheduler.service
 
 - name: Enable and start Kube Scheduler service

@@ -38,9 +38,9 @@ node('docker-onapp-agent') {
         file(credentialsId: 'kubernetes-scheduler-service', variable: 'kubernetes_scheduler_service')  
       ]) {
         sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key $kubernetes_etcd_service keys/etcd/'
-        sh '''mkdir -p keys/kubernetes/; cp $kubernetes_ca_crt $kubernetes_ca_key $kubernetes_etcd_key  $kubernetes_etcd_crt \
-        $kubernetes_api_crt $kubernetes_api_key $kubernetes_serviceacc_crt $kubernetes_serviceacc_key \
-        $kubernetes_encr_config_yaml $kubernetes_apiserver_service $kubernetes_controller_manager_kubeconfig $kubernetes_controller_manager_service \ 
+        sh '''mkdir -p keys/kubernetes/; cp $kubernetes_ca_crt $kubernetes_ca_key $kubernetes_etcd_key  $kubernetes_etcd_crt \\
+        $kubernetes_api_crt $kubernetes_api_key $kubernetes_serviceacc_crt $kubernetes_serviceacc_key \\
+        $kubernetes_encr_config_yaml $kubernetes_apiserver_service $kubernetes_controller_manager_kubeconfig $kubernetes_controller_manager_service \\ 
         $kubernetes_scheduler_kubeconfig $kubernetes_scheduler_service keys/kubernetes/'''
       }
       ansiblePlaybook credentialsId: 'ssh-jenkins-agent', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'site.yml'
