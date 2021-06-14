@@ -54,6 +54,7 @@ resource "vcd_vapp_vm" "worker" {
 }
 
 resource "vcd_vapp_vm" "lb" {
+  count = 1
   vapp_name = vcd_vapp.kube.name
   name = "loadbalancer"
   computer_name = "loadbalancer.localhost"

@@ -7,5 +7,5 @@ output "worker" {
 }
 
 output "loadbalancer" {
-  value = vcd_vapp_vm.lb.network[0].ip
+  value = vcd_vapp_vm.lb[*].network[0].ip
 }
