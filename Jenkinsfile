@@ -35,7 +35,7 @@ node('docker-onapp-agent') {
         file(credentialsId: 'kubernetes-controller-manager-kubeconfig', variable: 'kubernetes_controller_manager_kubeconfig'),
         file(credentialsId: 'kubernetes-controller-manager-service', variable: 'kubernetes_controller_manager_service'),
         file(credentialsId: 'kubernetes-scheduler-kubeconfig', variable: 'kubernetes_scheduler_kubeconfig'),
-        file(credentialsId: 'kubernetes-scheduler-service', variable: 'kubernetes_scheduler_service')  
+        file(credentialsId: 'kubernetes-scheduler-service', variable: 'kubernetes_scheduler_service'),  
         file(credentialsId: 'kubernetes-admin-kubeconfig', variable: 'kubernetes_admin_kubeconfig')   
       ]) {
         sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key $kubernetes_etcd_service keys/etcd/'
