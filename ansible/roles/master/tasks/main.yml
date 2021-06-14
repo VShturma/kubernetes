@@ -1,0 +1,6 @@
+---
+- name: Download Kube API Server
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kube-apiserver
+    dest: /usr/local/bin/
+    mode: u+x
