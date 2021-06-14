@@ -1,0 +1,17 @@
+---
+
+- name: Install HAproxy
+  yum:
+    name: haproxy
+    state: latest
+
+- name: Configure HAproxy
+  template:
+    src: keys/kubernetes/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: Restart HAproxy
+  systemd:
+    name: haproxy
+    enabled: yes
+    state: restarted
