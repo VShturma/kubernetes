@@ -7,3 +7,6 @@
 
 - hosts: worker
   become: yes
+
+- hosts: loadbalancer
+  become: yes

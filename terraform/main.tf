@@ -53,4 +53,24 @@ resource "vcd_vapp_vm" "worker" {
   }
 }
 
+resource "vcd_vapp_vm" "lb" {
+  vapp_name = vcd_vapp.kube.name
+  name = "loadbalancer"
+  computer_name = "loadbalancer.localhost"
+  catalog_name = var.vcd_catalog_name
+  template_name = var.vcd_template_name
+  memory = 512
+  cpus = 1
 
+  network {
+    type = "org"
+    name = "10.77.0.1/24"
+    ip_allocation_mode = "MANUAL"
+    ip = "10.77.0.55"
+    connected = true
+  }
+
+  customization {
+    enabled = true
+  }
+}
