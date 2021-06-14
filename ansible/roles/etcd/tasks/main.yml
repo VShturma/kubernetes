@@ -42,6 +42,7 @@
     chain: IN_public_allow
     protocol: tcp
     destination_port: 2379:2380
+    jump: ACCEPT
 
 - name: Enable and start ETCD service
   systemd:
