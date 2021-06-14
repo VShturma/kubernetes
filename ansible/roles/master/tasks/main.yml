@@ -31,7 +31,7 @@
 
 - name: Create Kube Controller Manager service
   template:
-    src: keys/kubernetes/kube-controller-manager.kubeconfig
+    src: keys/kubernetes/kube-controller-manager.service
     dest: /etc/systemd/system/kube-controller-manager.service
 
 - name: Enable and start Kube Controller Manager service
@@ -49,7 +49,7 @@
 
 - name: Create Kube Scheduler service
   template:
-    src: keys/kubernetes/kube-scheduler.kubeconfig
+    src: keys/kubernetes/kube-scheduler.service
     dest: /etc/systemd/system/kube-scheduler.service
 
 - name: Enable and start Kube Scheduler service
