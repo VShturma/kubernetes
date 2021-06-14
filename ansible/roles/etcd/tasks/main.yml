@@ -37,6 +37,12 @@
     src: keys/etcd/etcd.service
     dest: /etc/systemd/system/etcd.service
 
+- name: Allow ETCD ports
+  iptables:
+    chain: IN_public_allow
+    protocol: tcp
+    destination_port: 2379:2380
+
 - name: Enable and start ETCD service
   systemd:
     name: etcd
