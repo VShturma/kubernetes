@@ -1,6 +1,66 @@
 ---
+- name: Copy Kuberenetes keys and config files
+  copy:
+    src: keys/kubernetes/
+    dest: /var/lib/kubernetes/
+
 - name: Download Kube API Server
   get_url:
     url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kube-apiserver
     dest: /usr/local/bin/
     mode: u+x
+
+- name: Create Kube API Server service
+  template:
+    src: /var/lib/kubernetes/kube-apiserver.service
+    dest: /etc/systemd/system/kube-apiserver.service
+
+- name: Enable and start Kube API Server service
+  systemd:
+    name: kube-apiserver
+    enabled: yes
+    daemon_reload: yes
+    state: started
+
+- name: Download Kube Controller Manager
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kube-controller-manager
+    dest: /usr/local/bin/
+    mode: u+x
+
+- name: Create Kube Controller Manager service
+  template:
+    src: /var/lib/kubernetes/kube-controller-manager.kubeconfig
+    dest: /etc/systemd/system/kube-controller-manager.service
+
+- name: Enable and start Kube Controller Manager service
+  systemd:
+    name: kube-controller-manager
+    enabled: yes
+    daemon_reload: yes
+    state: started
+
+- name: Download Kube Scheduler
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kube-scheduler
+    dest: /usr/local/bin/
+    mode: u+x
+
+- name: Create Kube Scheduler service
+  template:
+    src: /var/lib/kubernetes/kube-scheduler.kubeconfig
+    dest: /etc/systemd/system/kube-scheduler.service
+
+- name: Enable and start Kube Scheduler service
+  systemd:
+    name: kube-scheduler
+    enabled: yes
+    daemon_reload: yes
+    state: started
+
+- name: Download Kube Control
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/
+    mode: u+x
+
