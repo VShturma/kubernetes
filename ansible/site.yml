@@ -1,4 +1,7 @@
 ---
+- hosts: loadbalancer
+  become: yes
+
 - hosts: master
   become: yes
   roles:
@@ -6,7 +9,4 @@
     - master
 
 - hosts: worker
-  become: yes
-
-- hosts: loadbalancer
   become: yes

@@ -1,7 +1,5 @@
 ---
-- name: tmp debug
-  debug:
-    var: "{{ hostvars }}"
+
 - name: Copy Kubernetes keys and config files
   copy:
     src: keys/kubernetes/
