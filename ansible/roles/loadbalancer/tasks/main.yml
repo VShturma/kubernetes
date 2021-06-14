@@ -10,6 +10,13 @@
     src: keys/kubernetes/haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
 
+- name: Open port 6443
+  iptables:
+    chain: IN_public_allow
+    protocol: tcp
+    destination_port: 6443
+    jump: ACCEPT
+
 - name: Restart HAproxy
   systemd:
     name: haproxy
