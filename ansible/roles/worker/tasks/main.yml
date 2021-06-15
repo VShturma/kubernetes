@@ -38,3 +38,12 @@
     dest: /usr/local/bin/runc
     mode: u+x
     owner: root
+
+- name: Download containerd
+  unarchive:
+    src: https://github.com/containerd/containerd/releases/download/v1.4.4/containerd-1.4.4-linux-amd64.tar.gz
+    remote_src: yes
+    dest: /bin/
+    include: /bin/*
+    owner: root
+    group: root
