@@ -46,6 +46,6 @@
     src: https://github.com/containerd/containerd/releases/download/v1.4.4/containerd-1.4.4-linux-amd64.tar.gz
     remote_src: yes
     dest: /bin/
-    include: /bin/*
-    owner: root
-    group: root
+#    include: /bin/*
+#    owner: root
+#    group: root
