@@ -30,3 +30,6 @@
     list_files: yes
     dest: /usr/local/bin/
     mode: u+x
+    owner: root
+
+
