@@ -7,6 +7,7 @@
       - conntrack
       - ipset
       - unzip
+      - bzip2
     state: installed
 
 - name: Turn off swap
