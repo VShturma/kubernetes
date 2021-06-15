@@ -50,6 +50,11 @@
     group: root
     extra_opts: [--strip-components=1]
 
+- name: Create containerd directory
+  file:
+    path: /etc/containerd/
+    state: directory
+
 - name: Create containerd config
   template:
     src: worker/config.toml
