@@ -6,6 +6,7 @@
       - socat
       - conntrack
       - ipset
+      - unzip
     state: installed
 
 - name: Turn off swap
