@@ -50,8 +50,19 @@
     group: root
     extra_opts: [--strip-components=1]
 
-#- name: Copy containerd
-#  copy:
-#    src: /tmp/bin/*
-#    dest: /bin/
-#    remote_src: yes
+- name: Create containerd config
+  template:
+    src: worker/config.toml
+    dest: /etc/containerd/config.toml
+
+- name: Create containerd service
+  template:
+    src: worker/containerd.service
+    dest: /etc/systemd/system/containerd.service
+
+- name: Enable and start containerd service
+  systemd:
+    name: containerd
+    enabled: yes
+    daemon_reload: yes
+    state: started
