@@ -30,6 +30,7 @@
     dest: /usr/local/bin/
     mode: u+x
     owner: root
+    group: root
 
 - name: Download runc
   get_url:
