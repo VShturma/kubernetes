@@ -45,18 +45,13 @@
   unarchive:
     src: https://github.com/containerd/containerd/releases/download/v1.4.4/containerd-1.4.4-linux-amd64.tar.gz
     remote_src: yes
-    dest: /tmp/
-    include: 
-      - bin/containerd
-      - bin/containerd-shim
-      - bin/containerd-shim-runc-v2
-      - bin/containerd-shim-runc-v1
-      - bin/ctr
+    dest: /bin/
     owner: root
     group: root
+    extra_opts: [--strip-components=1]
 
-- name: Copy containerd
-  copy:
-    src: /tmp/bin/*
-    dest: /bin/
-    remote_src: yes
+#- name: Copy containerd
+#  copy:
+#    src: /tmp/bin/*
+#    dest: /bin/
+#    remote_src: yes
