@@ -4,16 +4,16 @@
     - name: Gather facts
       setup:
 
-- hosts: loadbalancer
-  become: yes
-  roles:
-    - loadbalancer
+#- hosts: loadbalancer
+#  become: yes
+#  roles:
+#    - loadbalancer
 
-- hosts: master
-  become: yes
-  roles:
-    - etcd
-    - master
+#- hosts: master
+#  become: yes
+#  roles:
+#    - etcd
+#    - master
 
 - hosts: worker
   become: yes
