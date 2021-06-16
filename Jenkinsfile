@@ -39,7 +39,13 @@ node('docker-onapp-agent') {
         file(credentialsId: 'kubernetes-admin-kubeconfig', variable: 'kubernetes_admin_kubeconfig'),
 	file(credentialsId: 'kubernetes-haproxy-cfg', variable: 'kubernetes_haproxy_cfg'),
 	file(credentialsId: 'kubernetes-containerd-config', variable: 'kubernetes_containerd_config'),
-	file(credentialsId: 'kubernetes-containerd-service', variable: 'kubernetes_containerd_service')   
+	file(credentialsId: 'kubernetes-containerd-service', variable: 'kubernetes_containerd_service'),
+	file(credentialsId: 'kubernetes-worker1-crt', variable: 'kubernetes_worker1_crt'),
+	file(credentialsId: 'kubernetes-worker2-crt', variable: 'kubernetes_worker2_crt'),
+	file(credentialsId: 'kubernetes-worker1-key', variable: 'kubernetes_worker1_key'),
+	file(credentialsId: 'kubernetes-worker2-key', variable: 'kubernetes_worker2_key'),
+	file(credentialsId: 'kubernetes-worker1-kubeconfig', variable: 'kubernetes_worker1_kubeconfig'),
+	file(credentialsId: 'kubernetes-worker2-kubeconfig', variable: 'kubernetes_worker2_kubeconfig')   
       ]) {
         sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key $kubernetes_etcd_service keys/etcd/'
         sh '''mkdir -p keys/kubernetes/; cp $kubernetes_ca_crt $kubernetes_ca_key $kubernetes_etcd_key  $kubernetes_etcd_crt \\
@@ -47,7 +53,9 @@ node('docker-onapp-agent') {
         $kubernetes_encr_config_yaml $kubernetes_apiserver_service $kubernetes_controller_manager_kubeconfig \\
         $kubernetes_controller_manager_service $kubernetes_scheduler_kubeconfig $kubernetes_scheduler_service \\
         $kubernetes_admin_kubeconfig $kubernetes_haproxy_cfg keys/kubernetes/'''
-	sh '''mkdir -p worker; cp $kubernetes_containerd_config $kubernetes_containerd_service worker/'''
+	sh '''mkdir -p worker; cp $kubernetes_containerd_config $kubernetes_containerd_service \\
+	$kubernetes_worker1_crt $kubernetes_worker1_key $kubernetes_worker1_kubeconfig \\
+	$kubernetes_worker2_crt $kubernetes_worker2_key $kubernetes_worker2_kubeconfig worker/'''
       }
       ansiblePlaybook credentialsId: 'ssh-jenkins-agent', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'site.yml'
     }
