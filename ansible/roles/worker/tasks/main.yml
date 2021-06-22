@@ -71,3 +71,25 @@
     enabled: yes
     daemon_reload: yes
     state: started
+
+- name: Download Kubelet
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kubelet
+    dest: /usr/local/bin/
+    mode: u+x
+
+- name: Copy Kubelet key
+  copy:
+    src: worker/kubelet/
+    dst: /var/lib/kubelet/
+
+- name: Copy Kubelet config
+  copy:
+    src: worker/{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    dst: /var/lib/kubelet/kubeconfig/
+
+- name: Copy CA certificate
+  copy:
+    src: keys/kubernetes/ca.crt
+    dst: /var/lib/kubernetes/
+
