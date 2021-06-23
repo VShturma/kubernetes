@@ -61,8 +61,7 @@ node('docker-onapp-agent') {
 	$kubernetes_worker1_kubeconfig $kubernetes_worker2_kubeconfig \\ 
 	$kubernetes_kubelet_config $kubernetes_kubelet_service worker/'''
         
-	sh ''' cp $kubernetes_worker1_crt $kubernetes_worker1_key \\
-	$kubernetes_worker2_crt $kubernetes_worker2_key worker/kubelet/'''
+	sh ''' cp $kubernetes_worker1_crt $kubernetes_worker1_key $kubernetes_worker2_crt $kubernetes_worker2_key worker/kubelet/'''
       }
       ansiblePlaybook credentialsId: 'ssh-jenkins-agent', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'site.yml'
     }
