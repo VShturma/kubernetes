@@ -80,16 +80,19 @@
 
 - name: Copy Kubelet key
   copy:
-    src: worker/kubelet/
-    dst: /var/lib/kubelet/
+    src: worker/kubelet/{{ item }}
+    dest: /var/lib/kubelet/
+  with_items:
+    - {{  hostvars[inventory_hostname]['ansible_hostname'] }}.key
+    - {{  hostvars[inventory_hostname]['ansible_hostname'] }}.crt
 
 - name: Copy Kubelet config
   copy:
-    src: worker/{{ hostvars[inventory_hostname]['ansible_hostname'] }}
-    dst: /var/lib/kubelet/kubeconfig/
+    src: worker/{{ hostvars[inventory_hostname]['ansible_hostname'] }}.kubeconfig
+    dest: /var/lib/kubelet/kubeconfig/
 
 - name: Copy CA certificate
   copy:
     src: keys/kubernetes/ca.crt
-    dst: /var/lib/kubernetes/
+    dest: /var/lib/kubernetes/
 

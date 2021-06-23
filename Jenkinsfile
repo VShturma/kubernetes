@@ -58,7 +58,7 @@ node('docker-onapp-agent') {
         $kubernetes_admin_kubeconfig $kubernetes_haproxy_cfg keys/kubernetes/'''
 	
 	sh '''mkdir -p worker/kubelet; cp $kubernetes_containerd_config $kubernetes_containerd_service \\
-	$kubernetes_worker1_kubeconfig $kubernetes_worker2_kubeconfig \\ 
+	$kubernetes_worker1_kubeconfig $kubernetes_worker2_kubeconfig \\
 	$kubernetes_kubelet_config $kubernetes_kubelet_service worker/'''
         
 	sh ''' cp $kubernetes_worker1_crt $kubernetes_worker1_key $kubernetes_worker2_crt $kubernetes_worker2_key worker/kubelet/'''
