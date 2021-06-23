@@ -47,7 +47,10 @@ node('docker-onapp-agent') {
 	file(credentialsId: 'kubernetes-worker1-kubeconfig', variable: 'kubernetes_worker1_kubeconfig'),
 	file(credentialsId: 'kubernetes-worker2-kubeconfig', variable: 'kubernetes_worker2_kubeconfig'),
 	file(credentialsId: 'kubernetes-kubelet-config', variable: 'kubernetes_kubelet_config'),
-	file(credentialsId: 'kubernetes-kubelet-service', variable: 'kubernetes_kubelet_service')   
+	file(credentialsId: 'kubernetes-kubelet-service', variable: 'kubernetes_kubelet_service'),
+	file(credentialsId: 'kubernetes-kube-proxy-kubeconfig', variable: 'kubernetes_kube_proxy_kubeconfig'),
+	file(credentialsId: 'kubernetes-kube-proxy-config-yaml', variable: 'kubernetes_kube_proxy_config_yaml'),
+	file(credentialsId: 'kubernetes-kube-proxy-service', variable: 'kubernetes_kube_proxy_service')
       ]) {
         sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key $kubernetes_etcd_service keys/etcd/'
         
@@ -59,7 +62,8 @@ node('docker-onapp-agent') {
 	
 	sh '''mkdir -p worker/kubelet; cp $kubernetes_containerd_config $kubernetes_containerd_service \\
 	$kubernetes_worker1_kubeconfig $kubernetes_worker2_kubeconfig \\
-	$kubernetes_kubelet_config $kubernetes_kubelet_service worker/'''
+	$kubernetes_kubelet_config $kubernetes_kubelet_service $kubernetes_kube_proxy_kubeconfig \\
+	$kubernetes_kube_proxy_config_yaml $kubernetes_kube_proxy_service worker/'''
         
 	sh ''' cp $kubernetes_worker1_crt $kubernetes_worker1_key $kubernetes_worker2_crt $kubernetes_worker2_key worker/kubelet/'''
       }
