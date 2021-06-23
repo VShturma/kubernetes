@@ -119,6 +119,11 @@
     dest: /usr/local/bin/
     mode: u+x
 
+- name: Create Kube Proxy config directory
+  file:
+    path: /var/lib/kube-proxy/
+    state: directory
+
 - name: Copy Kube Proxy kubeconfig
   copy:
     src: worker/kube-proxy.kubeconfig
