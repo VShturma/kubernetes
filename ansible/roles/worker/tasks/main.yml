@@ -83,8 +83,8 @@
     src: worker/kubelet/{{ item }}
     dest: /var/lib/kubelet/
   with_items:
-    - {{  hostvars[inventory_hostname]['ansible_hostname'] }}.key
-    - {{  hostvars[inventory_hostname]['ansible_hostname'] }}.crt
+    - "{{  hostvars[inventory_hostname]['ansible_hostname'] }}.key"
+    - "{{  hostvars[inventory_hostname]['ansible_hostname'] }}.crt"
 
 - name: Copy Kubelet config
   copy:
