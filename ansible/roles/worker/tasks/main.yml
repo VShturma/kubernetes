@@ -96,3 +96,19 @@
     src: keys/kubernetes/ca.crt
     dest: /var/lib/kubernetes/
 
+- name: Create Kubelet config YAML
+  template:
+    src: worker/kubelet-config.yaml
+    dest: /var/lib/kubelet/kubelet-config.yaml
+
+- name: Create Kubelet service
+  template:
+    src: worker/kubelet.service
+    dest: /etc/systemd/system/kubelet.service
+
+- name: Enable and start Kubelet
+  systemd:
+    name: kubelet
+    enabled: yes
+    daemon_reload: yes
+    state: started
