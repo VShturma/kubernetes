@@ -119,12 +119,12 @@
     dest: /usr/local/bin/
     mode: u+x
 
-- name: Copy Kube Proxy config
+- name: Copy Kube Proxy kubeconfig
   copy:
     src: worker/kube-proxy.kubeconfig
     dest: /var/lib/kube-proxy/kubeconfig
 
-- name: Copy Kube Proxy config YAML:
+- name: Copy Kube Proxy config:
   copy:
     src: worker/kube-proxy-config.yaml
     dest: /var/lib/kube-proxy/kube-proxy-config.yaml
