@@ -50,7 +50,9 @@ node('docker-onapp-agent') {
 	file(credentialsId: 'kubernetes-kubelet-service', variable: 'kubernetes_kubelet_service'),
 	file(credentialsId: 'kubernetes-kube-proxy-kubeconfig', variable: 'kubernetes_kube_proxy_kubeconfig'),
 	file(credentialsId: 'kubernetes-kube-proxy-config-yaml', variable: 'kubernetes_kube_proxy_config_yaml'),
-	file(credentialsId: 'kubernetes-kube-proxy-service', variable: 'kubernetes_kube_proxy_service')
+	file(credentialsId: 'kubernetes-kube-proxy-service', variable: 'kubernetes_kube_proxy_service'),
+	file(credentialsId: 'kubernetes-cni-bridge', variable: 'kubernetes_cni_bridge'),
+	file(credentialsId: 'kubernetes-cni-loopback', variable: 'kubernetes_cni_loopback')
       ]) {
         sh 'mkdir -p keys/etcd/; cp $kubernetes_ca_crt $kubernetes_etcd_crt $kubernetes_etcd_key $kubernetes_etcd_service keys/etcd/'
         
@@ -66,6 +68,8 @@ node('docker-onapp-agent') {
 	$kubernetes_kube_proxy_config_yaml $kubernetes_kube_proxy_service worker/'''
         
 	sh ''' cp $kubernetes_worker1_crt $kubernetes_worker1_key $kubernetes_worker2_crt $kubernetes_worker2_key worker/kubelet/'''
+      
+        sh 'mkdir -p worker/cni; cp $kubernetes_cni_bridge $kubernetes_cni_loopback worker/cni/'
       }
       ansiblePlaybook credentialsId: 'ssh-jenkins-agent', disableHostKeyChecking: true, inventory: 'inventory', playbook: 'site.yml'
     }

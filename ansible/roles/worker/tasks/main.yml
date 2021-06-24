@@ -22,11 +22,19 @@
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
 
-#- name: Download CNI
-#  unarchive:
-#    src: https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
-#    remote_src: yes
-#    dest: /opt/cni/bin/
+- name: Download CNI
+  unarchive:
+    src: https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
+    remote_src: yes
+    dest: /opt/cni/bin/
+    mode: u+x
+    owner: root
+    group: root
+
+- name: Create the bridge and loopback network configuration files
+  copy:
+    src: worker/cni/
+    dest: /etc/cni/net.d/
 
 - name: Download crictl
   unarchive:
