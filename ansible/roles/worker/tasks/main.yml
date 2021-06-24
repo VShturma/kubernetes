@@ -25,7 +25,7 @@
 - name: Create CNI folder
   file:
     path: /opt/cni/bin/
-    state: folder
+    state: directory
 
 - name: Download CNI
   unarchive:
