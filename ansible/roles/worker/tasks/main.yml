@@ -22,6 +22,11 @@
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
 
+- name: Create CNI folder
+  file:
+    path: /opt/cni/bin/
+    state: folder
+
 - name: Download CNI
   unarchive:
     src: https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
