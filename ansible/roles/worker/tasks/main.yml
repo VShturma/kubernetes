@@ -169,6 +169,11 @@
     dest: /usr/local/bin/
     mode: u+x
 
+- name: Create resolv directory
+  file:
+   path: /run/systemd/resolve/
+   state: directory
+
 - name: Create resolv symlink
   file:
     src: /etc/systemd/resolved.conf
