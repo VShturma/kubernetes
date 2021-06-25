@@ -11,6 +11,7 @@
       - ipset
       - unzip
       - bzip2
+      - systemd-resolved
     state: installed
 
 - name: Turn off swap
@@ -167,3 +168,13 @@
     url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubernetes_version }}/bin/linux/amd64/kubectl
     dest: /usr/local/bin/
     mode: u+x
+
+- name: Create resolv symlink
+  file:
+    src: /etc/systemd/resolved.conf
+    dest: /run/systemd/resolve/resolv.conf
+    owner: root
+    group: root
+    state: link
+
+
